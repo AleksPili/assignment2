@@ -1,0 +1,95 @@
+<!--
+Fomatting for splash page adapted from W3C Schools tutorial - https://www.w3schools.com/howto/howto_js_tabs.asp on the 5/12/18
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="scripts/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet'>
+    </head>
+<body>
+
+<h1>Pontybridge Library Admin</h1>
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'Users')">Users</button>
+  <button class="tablinks" onclick="openTab(event, 'Books')">Books</button>
+  <button class="tablinks" onclick="openTab(event, 'Lending')">Lending</button>
+</div>
+
+<!--First tab-->
+<div id="Users" class="tabcontent">
+  <h2>Users</h2>
+  <p>Library users search and edit</p>
+  <label for="Name">Name:
+      <input type="text" id="Name">
+  </label>
+  <label for="Barcode">Barcode:
+    <input type="text" id="Barcode">
+  </label>
+    <br>
+    <br>
+<label for="userCheckBox"> Staff User
+    <input type="checkbox" id="Staff" name="Staff">
+</label>
+<label for="userCheckBox2"> Staff User
+    <input type="checkbox" id="Student" name="Student">
+</label>
+<button type="button" onclick="alert('Hello world!')">Search</button>
+<br>
+<br>
+<button type="button" onclick="alert('Hello world!')">Add</button>
+<button type="button" onclick="alert('Hello world!')">Delete</button>
+
+</div>
+
+<!--Second Tab-->
+<div id="Books" class="tabcontent">
+  <h2>Books</h2>
+  <p>Book search and edit</p> 
+    <label for="Title">Book Title:
+        <input type="text" id="Title">
+    </label>
+    <label for="ISBN">ISBN:
+        <input type="text" id="ISBN">
+    </label>
+    <br>
+    <br>
+    <label for="Author"> Author
+        <input type="text" name="Author">
+    </label>
+    <button type="button" onclick="alert('Hello world!')">Search</button>
+    <br>
+    <br>
+    <button type="button" onclick="alert('Hello world!')">Add</button>
+    <button type="button" onclick="alert('Hello world!')">Delete</button>
+</div>
+
+
+<!--Third Tab-->
+<div id="Lending" class="tabcontent">
+  <h2>Lending</h2>
+  <p>Lending hub for books</p>
+    <label for="userSearch"> Search for Users
+    <input type="text" name="userSearch">
+    </label>
+    <button type="button" onclick="alert('Hello world!')">Search</button>
+    <br><br>
+    <label for="bookSearch"> Search for Book
+        <input type="text" name="bookSearch">
+    </label>
+    <button type="button" onclick="alert('Hello world!')">Search</button>
+
+</div>
+
+
+<footer>
+<script type="text/javascript" src="scripts/frontend.js">
+</script>
+
+</footer>
+</body>
+</html> 
