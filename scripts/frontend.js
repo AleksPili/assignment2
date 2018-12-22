@@ -10,16 +10,22 @@ var api = "http://127.0.0.1/"
 var books = "books/"
 var authors = "authors/"
 var users = "users/"
-var apiSearchUsers = "http://127.0.0.1/search?type=user="
-let httpReq = new XMLHttpRequest()
+var apiSearchUsers = "http://127.0.0.1/users" //"http://127.0.0.1/search?type=user="
 
-//let input = document.getElementById('Name').value;
 
-// Input variables
+// JS for search function on Users tab (GET)
 
-const searchUsers = function (Name) {
-  var inputName = document.getElementById('Name').value;
-  var url= apiSearchUsers + inputName
+const processResponce = function() {
+  let responce = JSON.parse(this.responce);
+  console.log(responce)
+}
+const searchUsers = function(Name) { 
+  let inputName = document.getElementById('Name').value; // grabbing the "Name" value
+  let url= apiSearchUsers + inputName // constructing the URL
+  let httpReq = new XMLHttpRequest(); // Constructing the request
+  httpReq.addEventListener("load", processResponce)
+  httpReq.open("GET", url)
+  httpReq.send();
   console.log(url)
 }
 
