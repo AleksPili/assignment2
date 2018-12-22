@@ -10,15 +10,13 @@ var api = "http://127.0.0.1:3000/"
 var books = "books/"
 var authors = "authors/"
 var users = "users/"
-var apiSearchUsers = "http://127.0.0.1:3000/authors" //"http://127.0.0.1/search?type=user="
+var apiSearchUsers = "http://127.0.0.1:3000/search?type=user&barcode=" //"http://127.0.0.1:3000/search?type=barcode="
 
 
 // JS for search function on Users tab (GET)
 
-const processResponce = function() {
-  let responce = JSON.parse(this.responce);
-  console.log(responce)
-}
+
+
 const searchUsers = function(searchusers) { 
   let inputName = document.getElementById('searchusers').value; // grabbing the "searchusers" value
   let url= apiSearchUsers + inputName // constructing the URL
@@ -26,10 +24,20 @@ const searchUsers = function(searchusers) {
   httpReq.addEventListener("load", processResponce)
   httpReq.open("GET", url)
   httpReq.send();
-  //console.log(url)
+  //console.log(httpReq)
 }
 
-var searchButton_1 = document.getElementById("search_users_button");
+const processResponce = function() {
+  let responce = JSON.parse(this.responce); // is this correct? It keeps throwing up errors and since I have no idea what I'm doing....
+  console.log(responce);
+  let outputDiv = document.getElementById("userresulttext"); // hoping this will mean that results get painted to the page.
+  let newList = createList(outputDiv);
+  responce.ForEach(function(records) {
+    addListItem(newList, records.name);
+  });
+}
+
+const searchButton_1 = document.getElementById("search_users_button");
   searchButton_1.addEventListener('click', searchUsers())
 
 
