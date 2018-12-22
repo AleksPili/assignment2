@@ -6,11 +6,11 @@
 
 // constructing the set variables.
 
-var api = "http://127.0.0.1/"
+var api = "http://127.0.0.1:3000/"
 var books = "books/"
 var authors = "authors/"
 var users = "users/"
-var apiSearchUsers = "http://127.0.0.1/users" //"http://127.0.0.1/search?type=user="
+var apiSearchUsers = "http://127.0.0.1:3000/authors" //"http://127.0.0.1/search?type=user="
 
 
 // JS for search function on Users tab (GET)
@@ -19,18 +19,18 @@ const processResponce = function() {
   let responce = JSON.parse(this.responce);
   console.log(responce)
 }
-const searchUsers = function(Name) { 
-  let inputName = document.getElementById('Name').value; // grabbing the "Name" value
+const searchUsers = function(searchusers) { 
+  let inputName = document.getElementById('searchusers').value; // grabbing the "searchusers" value
   let url= apiSearchUsers + inputName // constructing the URL
   let httpReq = new XMLHttpRequest(); // Constructing the request
   httpReq.addEventListener("load", processResponce)
   httpReq.open("GET", url)
   httpReq.send();
-  console.log(url)
+  //console.log(url)
 }
 
 var searchButton_1 = document.getElementById("search_users_button");
-searchButton_1.addEventListener('click', searchUsers())
+  searchButton_1.addEventListener('click', searchUsers())
 
 
 

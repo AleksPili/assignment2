@@ -23,7 +23,7 @@ Fomatting for splash page adapted from W3C Schools tutorial - https://www.w3scho
 <!--First tab-->
 <div id="Users" class="tabcontent">
     <h2>Users</h2>
-        <p>Library users search and edit</p>
+        <p>Add Library Users</p>
     <label for="Name">Name :
       <input type="text" id="Name">
     </label>
@@ -38,11 +38,15 @@ Fomatting for splash page adapted from W3C Schools tutorial - https://www.w3scho
     <label for="userCheckBox2"> Staff User
         <input type="checkbox" id="Student" name="Student">
     </label>
+    <button type="button" id="add_users_button" onclick="alert('Hello world!')">Add</button>
+    <br>
+    <br>
+    <label for="searchusers">Name or Barcode to search :
+        <input type="text" id="searchusers">
     <button type="button" id="search_users_button">Search</button>
     <br>
-    <br>
-    <button type="button" id="add_users_button" onclick="alert('Hello world!')">Add</button>
-    <button type="button" id="delete_users_button" onclick="alert('Hello world!')">Delete</button>
+    <br> 
+    <div id="userresult"> <p id="userplaceholder">Do Dars</p> </div>
 </div>
 
 <!--Second Tab-->
@@ -70,8 +74,8 @@ Fomatting for splash page adapted from W3C Schools tutorial - https://www.w3scho
 
 <!--Third Tab-->
 <div id="Lending" class="tabcontent">
-  <h2>Lending</h2>
-  <p>Lending hub for books</p>
+    <h2>Lending</h2>
+    <p>Lending hub for books</p>
     <label for="userSearch"> Search for Users
     <input type="text" name="userSearch">
     </label>
