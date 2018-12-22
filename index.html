@@ -11,7 +11,7 @@ Fomatting for splash page adapted from W3C Schools tutorial - https://www.w3scho
     <link href='https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans' rel='stylesheet'>
     </head>
 <body>
-
+    
 <h1>Pontybridge Library Admin</h1>
 
 <div class="tab">
@@ -22,28 +22,27 @@ Fomatting for splash page adapted from W3C Schools tutorial - https://www.w3scho
 
 <!--First tab-->
 <div id="Users" class="tabcontent">
-  <h2>Users</h2>
-  <p>Library users search and edit</p>
-  <label for="Name">Name:
+    <h2>Users</h2>
+        <p>Library users search and edit</p>
+    <label for="Name">Name :
       <input type="text" id="Name">
-  </label>
-  <label for="Barcode">Barcode:
-    <input type="text" id="Barcode">
-  </label>
+    </label>
+    <label for="Barcode">Barcode :
+        <input type="text" id="Barcode">
+    </label>
     <br>
     <br>
-<label for="userCheckBox"> Staff User
-    <input type="checkbox" id="Staff" name="Staff">
-</label>
-<label for="userCheckBox2"> Staff User
-    <input type="checkbox" id="Student" name="Student">
-</label>
-<button type="button" onclick="alert('Hello world!')">Search</button>
-<br>
-<br>
-<button type="button" onclick="alert('Hello world!')">Add</button>
-<button type="button" onclick="alert('Hello world!')">Delete</button>
-
+    <label for="userCheckBox"> Staff User
+        <input type="checkbox" id="Staff" name="Staff">
+    </label>
+    <label for="userCheckBox2"> Staff User
+        <input type="checkbox" id="Student" name="Student">
+    </label>
+    <button type="button" id="search_users_button">Search</button>
+    <br>
+    <br>
+    <button type="button" id="add_users_button" onclick="alert('Hello world!')">Add</button>
+    <button type="button" id="delete_users_button" onclick="alert('Hello world!')">Delete</button>
 </div>
 
 <!--Second Tab-->
@@ -85,11 +84,9 @@ Fomatting for splash page adapted from W3C Schools tutorial - https://www.w3scho
 
 </div>
 
-
+</body>
 <footer>
-<script type="text/javascript" src="scripts/frontend.js">
-</script>
+<script type="text/javascript" src="scripts/frontend.js"></script>
 
 </footer>
-</body>
 </html> 
