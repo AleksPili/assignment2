@@ -16,26 +16,39 @@ var apiSearchUsers = "http://127.0.0.1:3000/search?type=user&barcode=" //"http:/
 // JS for search function on Users tab (GET)
 
 
-
-const searchUsers = function(searchusers) { 
+const searchUsers = function(searchUsers) { 
   let inputName = document.getElementById('searchusers').value; // grabbing the "searchusers" value
   let url= apiSearchUsers + inputName // constructing the URL
   let httpReq = new XMLHttpRequest(); // Constructing the request
-  httpReq.addEventListener("load", processResponce)
+  httpReq.addEventListener("load", processResponse)
   httpReq.open("GET", url)
   httpReq.send();
-  //console.log(httpReq)
+  console.log(searchUsers)
 }
 
-const processResponce = function() {
-  let responce = JSON.parse(this.responce); // is this correct? It keeps throwing up errors and since I have no idea what I'm doing....
-  console.log(responce);
+//const createList = function(parentElement) {
+ // let newList = document.createElement("ol");
+ // parentElement.appendChild(newList);
+ // return console.log(newList);
+//};
+
+//const addListItem = function(parentList, textContent) {
+ // let newItem = document.createElement("li");
+//  newItem.appendChild(document.createTextNode(textContent));
+//  parentList.appendChild(newItem);
+
+const processResponse = function() {
+  let response = JSON.parse(this.response); // is this correct? It keeps throwing up errors and since I have no idea what I'm doing....
+  console.log(response);
   let outputDiv = document.getElementById("userresulttext"); // hoping this will mean that results get painted to the page.
-  let newList = createList(outputDiv);
-  responce.ForEach(function(records) {
+  let newList = createList(outputDiv); // createList needs to be a new function that fills into your ID'd area "userresulttext"
+  response.forEach(function(records) {
     addListItem(newList, records.name);
   });
 }
+
+
+
 
 const searchButton_1 = document.getElementById("search_users_button");
   searchButton_1.addEventListener('click', searchUsers())
