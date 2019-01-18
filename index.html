@@ -54,21 +54,27 @@ Fomatting for splash page adapted from W3C Schools tutorial - https://www.w3scho
   <h2>Books</h2>
   <p>Book search and edit</p> 
     <label for="Title">Book Title:
-        <input type="text" id="Title">
+        <input type="text" id="title">
     </label>
     <label for="ISBN">ISBN:
         <input type="text" id="ISBN">
     </label>
     <br>
     <br>
-    <label for="Author"> Author
-        <input type="text" name="Author">
+    <label for="Author">Author:
+        <input type="text" id="authoradd">
     </label>
-    <button type="button" onclick="alert('Hello world!')">Search</button>
-    <br>
-    <br>
     <button type="button" onclick="alert('Hello world!')">Add</button>
     <button type="button" onclick="alert('Hello world!')">Delete</button>
+    <br>
+    <br>
+    <label for="booksearch"> Book 
+        <input type="text" id="booksearch">
+    </label>
+    <button type="button" id="search_books_button">Search</button>
+    <br>
+    <br>
+    <div id="bookresult"> <p id="bookresulttext">blank</p> </div>
 </div>
 
 
