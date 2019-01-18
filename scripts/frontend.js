@@ -11,10 +11,35 @@ var books = "books/"
 var authors = "authors/"
 var users = "users/"
 var apiSearchUsers = "http://127.0.0.1:3000/search?type=user&barcode=" //"http://127.0.0.1:3000/search?type=barcode="
+var apiSearchBooks = "http://127.0.0.1:3000/search?type=book&title="
+
+// JS for Search function on books tab (GET)
+
+const searchBooks = function() { 
+  let inputName2 = document.getElementById('booksearch').value; // grabbing the "searchusers" value
+  let burl= apiSearchBooks + inputName2 // constructing the URL
+  let httpReq = new XMLHttpRequest(); // Constructing the request
+  httpReq.addEventListener("load", processResponse2)
+  httpReq.open("GET", burl)
+  httpReq.send();
+  return searchBooks // Is this returning the JSON objects as a string? I don't 
+}
+
+const processResponse2 = function() {
+  let response = JSON.parse(this.response); // is this correct? It keeps throwing up errors and since I have no idea what I'm doing....
+  let outputDiv = document.getElementById("bookresulttext"); // 
+  let newList = CreateTableFromJSON(outputDiv); // 
+  response.forEach(function(records) {
+  let addListItem = (newList, records.name);
+  });
+}
+
+const searchButton_2 = document.getElementById("search_books_button");
+  searchButton_2.addEventListener('click', searchBooks())
+
 
 
 // JS for search function on Users tab (GET)
-
 
 const searchUsers = function() { 
   let inputName = document.getElementById('search_users_button').value; // grabbing the "searchusers" value
