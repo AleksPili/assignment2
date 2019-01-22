@@ -1,5 +1,6 @@
-// table CREATETABLEFROMJSON take from - https://www.encodedna.com/javascript/populate-json-data-to-html-table-using-javascript.htm on the 20/12/18
+// table CREATETABLEFROMJSON taken from - https://www.encodedna.com/javascript/populate-json-data-to-html-table-using-javascript.htm on the 20/12/18
 // constructing the set variables - THIS WILL NEED TO BE UPDATED.
+// Drop menu taken from - https://www.codebyamir.com/blog/populate-a-select-dropdown-list-with-json
 
 var api = "http://127.0.0.1:3000/"
 var books = "books/"
@@ -8,7 +9,7 @@ var authorbooks = "authors/1/books"
 var users = "users/"
 var apiSearchUsers = "http://127.0.0.1:3000/search?type=user&barcode=" //"http://127.0.0.1:3000/search?type=barcode="
 var apiSearchBooks = "http://127.0.0.1:3000/search?type=book&title="
-var lendList = "http://127.0.0.1:3000/loans/"
+var lendList = "http://127.0.0.1:3000/search?type=book"
 var httpReq = new XMLHttpRequest();
 
 // JS for Search function on books tab (GET)
@@ -28,10 +29,8 @@ const processResponse2 = function() {
   let response = JSON.parse(this.response); // is this correct? It keeps throwing up errors and since I have no idea what I'm doing....
   document.getElementById("bookresulttext"); // 
   CreateTableFromJSON2(response); // 
-  response.forEach(function(records) {
-  let addListItem = (newList, records.name);
-  });
-}
+  };
+
 
 const searchButton_2 = document.getElementById("search_books_button");
   searchButton_2.addEventListener('click', searchBooks)
@@ -101,14 +100,14 @@ const add_books_button = document.getElementById("add_books_button");
 
 // book lending
 
-let dropdown = document.getElementById("lenddropdown");
-dropdown.length = 0;
+let dropdown1 = document.getElementById("lenddropdown");
+dropdown1.length = 0;
 
 let defaultOption = document.createElement('option');
 defaultOption.text = "Choose Book";
 
-dropdown.add(defaultOption);
-dropdown.selectedIndex = 0;
+dropdown1.add(defaultOption);
+dropdown1.selectedIndex = 0;
 
 httpReq.open("GET", lendList, true);
 
@@ -118,19 +117,52 @@ httpReq.onload = function() {
     let option;
     for (let i = 0; i < data.length; i++) {
       option = document.createElement("option");
-      option.text = data[i].name;
+      option.text = data[i].title;
       option.value = data[i].abbreviation;
-      dropdown.add(option)
+      dropdown1.add(option)
     }
   }  else {
   }
 }
 
 httpReq.onerror = function() {
-  console.error("An error occured with" + lendList)
+console.error("An error occured with" + lendList)
 };
 
 httpReq.send()
+
+let dropdown2 = document.getElementById("userlenddropdown");
+dropdown2.length = 0;
+
+let defaultOption2 = document.createElement('option');
+defaultOption2.text = "Choose User";
+
+dropdown2.add(defaultOption2);
+dropdown2.selectedIndex = 0;
+
+httpReq.open("GET", api + users, true);
+
+httpReq.onload = function() {
+  if (httpReq.status === 200) {
+    const data = JSON.parse(httpReq.responseText)
+    let option;
+    for (let i = 0; i < data.length; i++) {
+      option = document.createElement("option");
+      option.text = data[i].title;
+      option.value = data[i].abbreviation;
+      dropdown2.add(option)
+    }
+  }  else {
+  }
+}
+
+httpReq.onerror = function() {
+  console.error("An error occured with" + api + users)
+};
+
+httpReq.send()
+
+
 
 // probably easier to just nail this out completely. 
 
@@ -219,20 +251,6 @@ const CreateTableFromJSON2 = function(outputDiv) {
     divContainer.innerHTML = "";
     divContainer.appendChild(table);
 }
-
-
-  //const createList = function(parentElement) {
- // let newList = document.createElement("ol");
- // parentElement.appendChild(newList);
- // return console.log(newList);
-//};
-
-//const addListItem = function(parentList, textContent) {
- // let newItem = document.createElement("li");
-//  newItem.appendChild(document.createTextNode(textContent));
-//  parentList.appendChild(newItem);
-
-
 
 
 // Below here is the functionality for the tabs. No Api stuff, Mostly cosmetic. 
