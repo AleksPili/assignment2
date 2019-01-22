@@ -8,8 +8,8 @@ var authorbooks = "authors/1/books"
 var users = "users/"
 var apiSearchUsers = "http://127.0.0.1:3000/search?type=user&barcode=" //"http://127.0.0.1:3000/search?type=barcode="
 var apiSearchBooks = "http://127.0.0.1:3000/search?type=book&title="
-var lendList = ""
-
+var lendList = "http://127.0.0.1:3000/loans/"
+var httpReq = new XMLHttpRequest();
 
 // JS for Search function on books tab (GET)
 
@@ -99,7 +99,40 @@ const addBooks = function() {
 const add_books_button = document.getElementById("add_books_button");
   add_books_button.addEventListener('click', addBooks)
 
-// probaly easier to just nail this out completely. 
+// book lending
+
+let dropdown = document.getElementById("lenddropdown");
+dropdown.length = 0;
+
+let defaultOption = document.createElement('option');
+defaultOption.text = "Choose Book";
+
+dropdown.add(defaultOption);
+dropdown.selectedIndex = 0;
+
+httpReq.open("GET", lendList, true);
+
+httpReq.onload = function() {
+  if (httpReq.status === 200) {
+    const data = JSON.parse(httpReq.responseText)
+    let option;
+    for (let i = 0; i < data.length; i++) {
+      option = document.createElement("option");
+      option.text = data[i].name;
+      option.value = data[i].abbreviation;
+      dropdown.add(option)
+    }
+  }  else {
+  }
+}
+
+httpReq.onerror = function() {
+  console.error("An error occured with" + lendList)
+};
+
+httpReq.send()
+
+// probably easier to just nail this out completely. 
 
 const CreateTableFromJSON = function(outputDiv) {
     
@@ -142,7 +175,6 @@ const CreateTableFromJSON = function(outputDiv) {
   var divContainer = document.getElementById("userresulttext");
     divContainer.innerHTML = "";
     divContainer.appendChild(table);
-    divContainer.getElementById("userresulttext").style.paddingLeft = "20%";
 }
 
 const CreateTableFromJSON2 = function(outputDiv) {
