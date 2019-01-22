@@ -58,11 +58,12 @@ h1 {
   height: 30vw;
 }
 
-/* THIS WAS TAKEN FROM TUTORIAL ON TABLE CREATION, WILL NEED HEAVY EDITING */
+/* THIS WAS TAKEN FROM TUTORIAL ON TABLE CREATION,  */
 
-th, td, p, input {
-  font:14px Verdana;
+table {
+  padding-left: 25%; 
 }
+
 table, th, td 
 {
   border: solid 1px #DDD;
