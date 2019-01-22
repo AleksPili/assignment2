@@ -66,26 +66,28 @@ const searchButton_1 = document.getElementById("search_users_button");
   searchButton_1.addEventListener('click', searchUsers)
 
 // add users, no worky.
-//const add_users_button = document.getElementById("add_users_button");
-//add_users_button.addEventListener('load', addUsers)
+
 
 debugger;
 const addUsers = function() { 
-  let inputName = document.getElementById('userName').value; 
-  let url= apiSearchUsers + inputName 
+  let inputName = document.getElementById("userName").value;
+  let staffOrStudent = document.getElementById("staffcb").value; 
+  let url = api + users 
+  let barcode = Math.floor((Math.random() * 1000000) + 1)
+  let JSONUsers =  inputName + staffOrStudent
   let httpReq = new XMLHttpRequest();
-  httpReq.addEventListener("load", userAdd)
   httpReq.open("POST", url)
-  httpReq.send();
-  return searchUsers
+  httpReq.setRequestHeader
+  httpReq.send(JSON.stringify({"name": inputName , "barcode": barcode , "memberType": staffOrStudent}));
 }
 
-const userAdd = function() {
-  let response = JSON.stringify({name : inputName}); 
-  let outputDiv = document.getElementById("userName"); 
-  return userAdd
-}
 
+const add_users_button = document.getElementById("add_users_button");
+ add_users_button.addEventListener('click', addUsers)
+
+
+
+ 
 // probaly easier to just nail this out completely. 
 
 const CreateTableFromJSON = function(outputDiv) {
