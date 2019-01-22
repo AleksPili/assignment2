@@ -11,10 +11,13 @@ var apiSearchUsers = "http://127.0.0.1:3000/search?type=user&barcode=" //"http:/
 var apiSearchBooks = "http://127.0.0.1:3000/search?type=book&title="
 var lendList = "http://127.0.0.1:3000/search?type=book"
 var httpReq = new XMLHttpRequest();
+var todayDate = new Date()
+var lendDate = todayDate.setDate(todayDate.getDate() + 14);
+
 
 // JS for Search function on books tab (GET)
 
-
+console.log(lendDate)
 
 const searchBooks = function() { 
   let inputName2 = document.getElementById('booksearch').value; // grabbing the "searchusers" value
@@ -161,7 +164,16 @@ httpReq.onerror = function() {
 
 httpReq.send();
 
+const lendbooks = document.getElementById("lend");
+ add_users_button.addEventListener('click', lendBookFunc)
 
+const lendBookFunc = function() { 
+  let inputName1 = document.getElementById("lenddropdown").value
+  let inputName2 = document.getElementById("userlenddropdown").value
+  let url = api + users + inputName2 + "/" + loans + inputName1
+  httpReq.open("POST", url)
+  httpReq.setRequestHeader
+  httpReq.send(JSON.stringify({ , lendDate}))
 
 // probably easier to just nail this out completely. 
 
