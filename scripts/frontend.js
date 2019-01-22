@@ -40,8 +40,8 @@ const searchButton_2 = document.getElementById("search_books_button");
 // JS for search function on Users tab (GET)
 
 const searchUsers = function() { 
-  let inputName = document.getElementById('userName').value; // grabbing the "searchusers" value
-  let url= api + users + inputName // constructing the URL
+  let inputName = document.getElementById('searchusers').value; // grabbing the "searchusers" value
+  let url= apiSearchUsers + inputName // constructing the URL
   let httpReq = new XMLHttpRequest(); // Constructing the request
   httpReq.addEventListener("load", processResponse)
   httpReq.open("GET", url)
@@ -129,7 +129,7 @@ httpReq.onerror = function() {
 console.error("An error occured with" + lendList)
 };
 
-httpReq.send();
+httpReq.send()
 
 let dropdown2 = document.getElementById("userlenddropdown");
 dropdown2.length = 0;
