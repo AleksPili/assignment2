@@ -129,7 +129,7 @@ httpReq.onerror = function() {
 console.error("An error occured with" + lendList)
 };
 
-httpReq.send()
+httpReq.send();
 
 let dropdown2 = document.getElementById("userlenddropdown");
 dropdown2.length = 0;
@@ -155,12 +155,11 @@ httpReq.onload = function() {
   }  else {
   }
 }
-
 httpReq.onerror = function() {
   console.error("An error occured with" + api + users)
 };
 
-httpReq.send()
+httpReq.send();
 
 
 
