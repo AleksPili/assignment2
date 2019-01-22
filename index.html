@@ -23,29 +23,30 @@ Fomatting for splash page adapted from W3C Schools tutorial - https://www.w3scho
 <!--First tab-->
 <div id="Users" class="tabcontent">
     <h2>Users</h2>
+    <div id="usersborder">
         <p>Add Library Users</p>
-    <label for="Name">Name :
-      <input type="text" id="userName">
-    </label>
-    <br>
-    <br>
-    <label for="staffCheckBox"> Staff User
-        <input type="checkbox" id="staffcb" name="Staff">
-    </label>
-    <label for="studentCheckBox2"> Student User
-        <input type="checkbox" id="studentcb" name="Student">
-    </label>
-    <button type="button" id="add_users_button" >Add</button>
-    <br>
-    <br>
+            <label for="Name">Name :
+                <input type="text" id="userName">
+            </label>
+        <br>
+        <br>
+        <label for="staffCheckBox"> Staff User?
+            <input type="checkbox" id="staffcb" name="Staff" value="Staff">
+        </label>
+        <button type="button" id="add_users_button" >Add</button>
+        <br>
+        <br>
+    </div>
+    <div id="usersearchcontainer">
     <label for="searchusers">Name or Barcode to search :
         <input type="text" id="searchusers">
     <button type="button" id="search_users_button">Search</button>
     <br>
     <br> 
-    <div id="userresult"> <p id="userresulttext">Do Dars</p> </div>
+        <div id="userresult"> <p id="userresulttext">Nothing Found</p>
+        </div>
+    </div>
 </div>
-
 <!--Second Tab-->
 <div id="Books" class="tabcontent">
   <h2>Books</h2>
@@ -71,7 +72,7 @@ Fomatting for splash page adapted from W3C Schools tutorial - https://www.w3scho
     <button type="button" id="search_books_button">Search</button>
     <br>
     <br>
-    <div id="bookresult"> <p id="bookresulttext">blank</p> </div>
+    <div id="bookresult"> <p id="userresulttext">blank</p> </div>
 </div>
 
 
