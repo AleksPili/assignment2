@@ -15,6 +15,9 @@ var apiSearchBooks = "http://127.0.0.1:3000/search?type=book&title="
 
 // JS for Search function on books tab (GET)
 
+
+
+
 const searchBooks = function() { 
   let inputName2 = document.getElementById('booksearch').value; // grabbing the "searchusers" value
   let burl= apiSearchBooks + inputName2 // constructing the URL
@@ -22,7 +25,6 @@ const searchBooks = function() {
   httpReq.addEventListener("load", processResponse2)
   httpReq.open("GET", burl)
   httpReq.send();
-  return searchBooks // Is this returning the JSON objects as a string? I don't 
 }
 
 const processResponse2 = function() {
@@ -35,41 +37,64 @@ const processResponse2 = function() {
 }
 
 const searchButton_2 = document.getElementById("search_books_button");
-  searchButton_2.addEventListener('click', searchBooks())
+  searchButton_2.addEventListener('click', searchBooks)
 
 
 
 // JS for search function on Users tab (GET)
 
 const searchUsers = function() { 
-  let inputName = document.getElementById('search_users_button').value; // grabbing the "searchusers" value
-  let url= apiSearchUsers + inputName // constructing the URL
+  let inputName = document.getElementById('userName').value; // grabbing the "searchusers" value
+  let url= api + users + inputName // constructing the URL
   let httpReq = new XMLHttpRequest(); // Constructing the request
   httpReq.addEventListener("load", processResponse)
   httpReq.open("GET", url)
   httpReq.send();
-  return searchUsers // Is this returning the JSON objects as a string? I don't 
 }
 
 const processResponse = function() {
   let response = JSON.parse(this.response); // is this correct? It keeps throwing up errors and since I have no idea what I'm doing....
   let outputDiv = document.getElementById("userresulttext"); // hoping this will mean that results get painted to the page.
-  let newList = CreateTableFromJSON(outputDiv); // createList needs to be a new function that fills into your ID'd area "userresulttext"
+  let newList = CreateTableFromJSON(response); // createList needs to be a new function that fills into your ID'd area "userresulttext"
   response.forEach(function(records) {
   let addListItem = (newList, records.name);
+  //return processResponse;
   });
 }
 
 const searchButton_1 = document.getElementById("search_users_button");
-  searchButton_1.addEventListener('click', searchUsers())
+  searchButton_1.addEventListener('click', searchUsers)
 
-const CreateTableFromJSON = function() {
+// add users, no worky.
+//const add_users_button = document.getElementById("add_users_button");
+//add_users_button.addEventListener('load', addUsers)
+
+debugger;
+const addUsers = function() { 
+  let inputName = document.getElementById('userName').value; 
+  let url= apiSearchUsers + inputName 
+  let httpReq = new XMLHttpRequest();
+  httpReq.addEventListener("load", userAdd)
+  httpReq.open("POST", url)
+  httpReq.send();
+  return searchUsers
+}
+
+const userAdd = function() {
+  let response = JSON.stringify({name : inputName}); 
+  let outputDiv = document.getElementById("userName"); 
+  return userAdd
+}
+
+// probaly easier to just nail this out completely. 
+
+const CreateTableFromJSON = function(outputDiv) {
     
   // EXTRACT VALUE FOR HTML HEADER. 
   // ('Book ID', 'Book Name', 'etc')
   var col = [];
-  for (var i = 0; i < searchUsers.length; i++) {
-      for (var key in searchUsers[i]) {
+  for (var i = 0; i < outputDiv.length; i++) {
+      for (var key in outputDiv[i]) {
           if (col.indexOf(key) === -1) {
               col.push(key);
             }
@@ -90,13 +115,13 @@ const CreateTableFromJSON = function() {
   }
 
   // ADD JSON DATA TO THE TABLE AS ROWS.
-  for (var i = 0; i < searchUsers.length; i++) {
+  for (var i = 0; i < outputDiv.length; i++) {
 
       tr = table.insertRow(-1);
 
       for (var j = 0; j < col.length; j++) {
           var tabCell = tr.insertCell(-1);
-          tabCell.innerHTML = searchUsers[i][col[j]];
+          tabCell.innerHTML = outputDiv[i][col[j]];
       }
   }
 
