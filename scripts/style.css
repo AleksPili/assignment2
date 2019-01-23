@@ -15,15 +15,11 @@ h1 {
   color:black;
 }
 
-#usersearchcontainer {
+#usersearchcontainer, #booksearchcontainer {
   text-align: center;
   padding-left: 30%;
 }
 
-#bookresulttext {
-  padding-left: 30%;
-
-}
 
 /* Style the tab */
 .tab {
@@ -107,6 +103,6 @@ the single media query works for the most part... */
     height: 80vw;
   }
 }
-  #bookresulttext {
-  padding-left: 5% ;
+  #bookresulttext, #booksearchcontainer {
+    padding-left: 5% ;
 }

@@ -7,7 +7,7 @@
 var api = "http://127.0.0.1:3000/";
 var books = "books/";
 var authors = "authors/";
-var authorbooks = "authors/1/books";
+var authorbooks = "authors/1/books/";
 var users = "users/" ;
 var apiSearchUsers = "http://127.0.0.1:3000/search?type=user&barcode=" ; //"http://127.0.0.1:3000/search?type=barcode="
 var apiSearchBooks = "http://127.0.0.1:3000/search?type=book&title=" ;
@@ -62,14 +62,14 @@ const searchButton_1 = document.getElementById("search_users_button");
   searchButton_1.addEventListener('click', searchUsers)
 
 
-  // add users, no worky.
+// add users
 
 debugger;
 const addUsers = function() { 
   let inputName = document.getElementById("userName").value;
   let staffOrStudent = document.getElementById("staffcb").value; 
-  let url = api + users 
-  let barcode = Math.floor((Math.random() * 1000000) + 1)
+  let url = api + users ;
+  let barcode = Math.floor((Math.random() * 1000000) + 1);
   let httpReq = new XMLHttpRequest();
   httpReq.open("POST", url);
   httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -78,7 +78,19 @@ const addUsers = function() {
 
 
 const add_users_button = document.getElementById("add_users_button");
- add_users_button.addEventListener('click', addUsers)
+ add_users_button.addEventListener('click', addUsers);
+ 
+
+// delete users
+
+const delUsers = function() {
+  let inputName = document.getElementById("userDelete").value;
+  let url = api + users + inputName;
+  httpReq.open("DELETE", url)
+  httpReq.send()
+
+}
+
 
 // Book adding. 
 
@@ -99,6 +111,15 @@ const addBooks = function() {
 
 const add_books_button = document.getElementById("add_books_button");
   add_books_button.addEventListener('click', addBooks)
+
+const delBooks = function() {
+  let inputName = document.getElementById("bookDel").value;
+  let url = api + books + inputName;
+  httpReq.open("DELETE", url)
+  httpReq.send()
+  
+  }
+  
 
 // book lending 103 - 164 - Populating the drop downs, 166 lend book function.
 
@@ -278,3 +299,11 @@ function openTab(evt, menuName) {
     document.getElementById(menuName).style.display = "block";
     evt.currentTarget.className += " active";
   }
+
+// The buttons for del only work down here. 
+
+const del_users_button = document.getElementById("del_users_button");
+  del_users_button.addEventListener('click', delUsers);
+
+const del_books_button = document.getElementById("del_books_button");
+del_books_button.addEventListener('click', delBooks);
