@@ -133,7 +133,7 @@ const editBooks = function(){
   let url = api + books + imputName3
   httpReq.open("PUT", url);
   httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");;
-  httpReq.send(JSON.stringify({"bookTitle": inputName, "bookISBN": inputName2 }));
+  httpReq.send(JSON.stringify({"title": inputName, "isbn": inputName2 }));
 }
   
 
