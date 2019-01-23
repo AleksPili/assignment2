@@ -72,7 +72,7 @@ const addUsers = function() {
   let barcode = Math.floor((Math.random() * 1000000) + 1)
   let httpReq = new XMLHttpRequest();
   httpReq.open("POST", url);
-  httpReq.setRequestHeader
+  httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   httpReq.send(JSON.stringify({"name": inputName , "barcode": barcode , "memberType": staffOrStudent}));
 }
 
@@ -90,17 +90,17 @@ const addBooks = function() {
   let url1 = api + authors + inputName3;
   let httpReq = new XMLHttpRequest();
   httpReq.open("POST", url1);
-  httpReq.setRequestHeader;
+  httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");;
   httpReq.send(JSON.stringify({"Author": inputName3}))
   httpReq.open("POST", url);
-  httpReq.setRequestHeader;
+  httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");;
   httpReq.send(JSON.stringify({"bookTitle": inputName, "bookISBN": inputName2 }))
 }
 
 const add_books_button = document.getElementById("add_books_button");
   add_books_button.addEventListener('click', addBooks)
 
-// book lending
+// book lending 103 - 164 - Populating the drop downs, 166 lend book function.
 
 let dropdown1 = document.getElementById("lenddropdown");
 dropdown1.length = 0;
@@ -171,7 +171,7 @@ httpReq.send();
 //  let inputName2 = document.getElementById("userlenddropdown").value
  // let url = api + users + inputName2 + "/" + loans + inputName1
  // httpReq.open("POST", url)
- // httpReq.setRequestHeader
+ // httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 //  httpReq.send(JSON.stringify({ , lendDate}))
 
 // probably easier to just nail this out completely. 
