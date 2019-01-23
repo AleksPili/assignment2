@@ -133,35 +133,35 @@ console.error("An error occured with" + lendList)
 
 httpReq.send()
 
-//let dropdown2 = document.getElementById("userlenddropdown");
-//dropdown2.length = 0;
+let dropdown2 = document.getElementById("userlenddropdown");
+dropdown2.length = 0;
 
-//let defaultOption2 = document.createElement('option');
-//defaultOption2.text = "Choose User";
+let defaultOption2 = document.createElement('option');
+defaultOption2.text = "Choose User";
 
-//dropdown2.add(defaultOption2);
-//dropdown2.selectedIndex = 0;
+dropdown2.add(defaultOption2);
+dropdown2.selectedIndex = 0;
 
-//httpReq.open("GET", api + users, true);
+httpReq.open("GET", api + users, true);
 
-//httpReq.onload = function() {
- //if (httpReq.status === 200) {
-  //  const data = JSON.parse(httpReq.responseText)
- //   let option;
- //   for (let i = 0; i < data.length; i++) {
- //     option = document.createElement("option");
-//      option.text = data[i].title;
- //     option.value = data[i].abbreviation;
-  //    dropdown2.add(option)
-  //  }
-  //}  else {
-  //}
-//}
-//httpReq.onerror = function() {
- // console.error("An error occured with" + api + users)
-//};
+httpReq.onload = function() {
+ if (httpReq.status === 200) {
+    const data = JSON.parse(httpReq.responseText)
+    let option;
+    for (let i = 0; i < data.length; i++) {
+      option = document.createElement("option");
+      option.text = data[i].name;
+      option.value = data[i].abbreviation;
+      dropdown2.add(option)
+    }
+  }  else {
+  }
+}
+httpReq.onerror = function() {
+  console.error("An error occured with" + api + users)
+};
 
-//httpReq.send();
+httpReq.send();
 
 //const lendbooks = document.getElementById("lend");
 // add_users_button.addEventListener('click', lendBookFunc)

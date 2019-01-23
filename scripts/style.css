@@ -20,6 +20,11 @@ h1 {
   padding-left: 30%;
 }
 
+#bookresulttext {
+  padding-left: 30%;
+
+}
+
 /* Style the tab */
 .tab {
   overflow: hidden;
@@ -101,4 +106,7 @@ the single media query works for the most part... */
   .tabcontent {
     height: 80vw;
   }
+}
+  #bookresulttext {
+  padding-left: 5% ;
 }
