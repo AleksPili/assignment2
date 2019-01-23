@@ -15,6 +15,10 @@ h1 {
   color:black;
 }
 
+#usersearchcontainer {
+  text-align: center;
+  padding-left: 30%;
+}
 
 /* Style the tab */
 .tab {

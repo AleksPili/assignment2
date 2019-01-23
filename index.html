@@ -32,22 +32,24 @@ Code for dropdown menu for lending tab adapted from - https://www.codebyamir.com
             </label>
         <br>
         <br>
-        <label for="staffCheckBox"> Staff User?
-            
-            <input type="hidden" id="staffcb" name="Staff" value="Student">
-            <input type="checkbox" id="staffcb" name="Staff" value="Staff">
-        </label>
+
+        <label for="staffCheckBox"> User Type
+            <select id="staffcb">
+                <option value="Staff">Staff</option>
+                <option value="Student">Student</option>
+            </select>        </label>
         <button type="button" id="add_users_button" >Add</button>
         <br>
         <br>
     </div>
-    <div id="usersearchcontainer">
+    
     <label for="searchusers">Name or Barcode to search :
         <input type="text" id="searchusers">
     <button type="button" id="search_users_button">Search</button>
     <br>
     <br> 
-        <div id="userresult"> <p id="userresulttext">Nothing Found</p>
+    <div id="usersearchcontainer">
+        <div id="userresulttext">
         </div>
     </div>
 </div>
