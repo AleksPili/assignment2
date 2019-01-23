@@ -33,7 +33,6 @@ h1 {
 /* Style the buttons inside the tab */
 .tab button {
   background-color: inherit;
-  float: center;
   border: none;
   outline: none;
   cursor: pointer;
