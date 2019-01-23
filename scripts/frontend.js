@@ -1,5 +1,5 @@
 // table CREATETABLEFROMJSON taken from - https://www.encodedna.com/javascript/populate-json-data-to-html-table-using-javascript.htm on the 20/12/18
-// Drop menu taken from - https://www.codebyamir.com/blog/populate-a-select-dropdown-list-with-json
+// Drop menu taken from  - https://www.codebyamir.com/blog/populate-a-select-dropdown-list-with-json
 
 
 // constructing the set variables - THIS WILL NEED TO BE UPDATED.
@@ -9,12 +9,13 @@ var books = "books/";
 var authors = "authors/";
 var authorbooks = "authors/1/books/";
 var users = "users/" ;
+var loans = "loans/" ;
 var apiSearchUsers = "http://127.0.0.1:3000/search?type=user&barcode=" ; //"http://127.0.0.1:3000/search?type=barcode="
 var apiSearchBooks = "http://127.0.0.1:3000/search?type=book&title=" ;
 var lendList = "http://127.0.0.1:3000/search?type=book" ;
 var httpReq = new XMLHttpRequest();
+var date = Date.now()
 var lendDate = new Date(Date.now() + 12096e5);
-
 
 // JS for Search function on books tab (GET)
 
@@ -62,7 +63,6 @@ const searchButton_1 = document.getElementById("search_users_button");
 
 // add users
 
-debugger;
 const addUsers = function() { 
   let inputName = document.getElementById("userName").value;
   let staffOrStudent = document.getElementById("staffcb").value; 
@@ -73,11 +73,9 @@ const addUsers = function() {
   httpReq.send(JSON.stringify({"name": inputName , "barcode": barcode , "memberType": staffOrStudent}));
 }
 
-
 const add_users_button = document.getElementById("add_users_button");
  add_users_button.addEventListener('click', addUsers);
  
-
 // delete users
 
 const delUsers = function() {
@@ -129,88 +127,110 @@ const delBooks = function() {
 const editBooks = function(){
   let inputName = document.getElementById("booktitle").value;
   let inputName2 = document.getElementById("ISBN").value;
-  let imputName3 = document.getElementById("bookDel").value;
-  let url = api + books + imputName3
+  let inputName3 = document.getElementById("bookDel").value;
+  let url = api + books + inputName3
   httpReq.open("PUT", url);
   httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");;
   httpReq.send(JSON.stringify({"title": inputName, "isbn": inputName2 }));
 }
   
 
-// book lending 103 - 164 - Populating the drop downs, 166 lend book function.
+// book lending 140 - 202 - Populating the drop downs, this was originally in place instead of the ID system which is a little user unfriendly
+// however I couldn't find a way of populated values being used in further GET requests. 
+
+//let dropdown1 = document.getElementById("lenddropdown");
+//dropdown1.length = 0;
+
+//let defaultOption1 = document.createElement('option');
+//defaultOption1.text = "Choose User";
+
+//dropdown1.add(defaultOption1);
+//dropdown1.selectedIndex = 0;
+
+//httpReq.open("GET", api + users, true);
+
+//httpReq.onload = function() {
+//  if (httpReq.status === 200) {
+//    const data = JSON.parse(httpReq.responseText)
+//    let option;
+//    for (let i = 0; i < data.length; i++) {
+//      option = document.createElement("option");
+//      option.text = data[i].name;
+//     option.value = data[i].abbreviation;
+//      dropdown1.add(option)
+//    }
+//  }  else {
+//  }
+//}
+//httpReq.onerror = function() {
+//console.error("An error occured with" + lendList);
+//};
+
+//httpReq.send();
 
 
-let dropdown1 = document.getElementById("lenddropdown");
-dropdown1.length = 0;
+//let dropdown2 = document.getElementById("userlenddropdown");
+//dropdown2.length = 0;
 
-let defaultOption1 = document.createElement('option');
-defaultOption1.text = "Choose Book";
+//let defaultOption2 = document.createElement('option');
+//defaultOption2.text = "Choose User";
 
-dropdown1.add(defaultOption1);
-dropdown1.selectedIndex = 0;
+//dropdown2.add(defaultOption2);
+//dropdown2.selectedIndex = 0;
 
-httpReq.open("GET", lendList, true);
+//httpReq.open("GET", api + users, true);
 
-httpReq.onload = function() {
-  if (httpReq.status === 200) {
-    const data = JSON.parse(httpReq.responseText)
-    let option;
-    for (let i = 0; i < data.length; i++) {
-      option = document.createElement("option");
-      option.text = data[i].title;
-      option.value = data[i].abbreviation;
-      dropdown1.add(option)
-    }
-  }  else {
-  }
+//httpReq.onload = function() {
+ //if (httpReq.status === 200) {
+    //const data = JSON.parse(httpReq.responseText)
+    //let option;
+    //for (let i = 0; i < data.length; i++) {
+     // option = document.createElement("option");
+      //option.text = data[i].name;
+      //option.value = data[i].abbreviation;
+      //dropdown2.add(option)
+   // }
+// }  //else {
+ // }
+//}
+//httpReq.onerror = function() {
+//console.error("An error occured with" + api + users)
+//};
+
+//httpReq.send();
+
+
+// Lending books functionality
+
+const lendBookFunc = function() { 
+  let inputName1 = document.getElementById("lenddropdown").value;
+  let inputName2 = document.getElementById("userlenddropdown").value;
+  let url = api + users + inputName1 + "/" + loans + inputName2
+  httpReq.open("POST", url);
+  httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  httpReq.send(JSON.stringify({"dueDate": lendDate}))
+  
 }
-httpReq.onerror = function() {
-console.error("An error occured with" + lendList);
-};
 
-httpReq.send();
-
-let dropdown2 = document.getElementById("userlenddropdown");
-dropdown2.length = 0;
-
-let defaultOption2 = document.createElement('option');
-defaultOption2.text = "Choose User";
-
-dropdown2.add(defaultOption2);
-dropdown2.selectedIndex = 0;
-
-httpReq.open("GET", api + users, true);
-
-httpReq.onload = function() {
- if (httpReq.status === 200) {
-    const data = JSON.parse(httpReq.responseText)
-    let option;
-    for (let i = 0; i < data.length; i++) {
-      option = document.createElement("option");
-      option.text = data[i].name;
-      option.value = data[i].abbreviation;
-      dropdown2.add(option)
-    }
-  }  else {
-  }
+const lendBookFunc2 = function() { 
+  let inputName1 = document.getElementById("lenddropdown").value;
+  let inputName2 = document.getElementById("userlenddropdown").value;
+  let inputName3 = document.getElementById("customdays").value
+  let url = api + users + inputName1 + "/" + loans + inputName2
+  let custLendD = 86400 * inputName3
+  let custLendDate = custLendD + lendDate
+  httpReq.open("POST", url);
+  httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  httpReq.send(JSON.stringify({"dueDate": custLendDate}))
 }
-httpReq.onerror = function() {
-  console.error("An error occured with" + api + users)
-};
 
-httpReq.send();
+const lendbooks = document.getElementById("lend");
+ lendbooks.addEventListener('click', lendBookFunc)
 
-//const lendbooks = document.getElementById("lend");
-// add_users_button.addEventListener('click', lendBookFunc)
+const lendbooks2 = document.getElementById("custlend");
+ lendbooks2.addEventListener('click', lendBookFunc2)
 
-//const lendBookFunc = function() { 
-//  let inputName1 = document.getElementById("lenddropdown").value
-//  let inputName2 = document.getElementById("userlenddropdown").value
- // let url = api + users + inputName2 + "/" + loans + inputName1
- // httpReq.open("POST", url)
-//  httpReq.send(JSON.stringify({ , lendDate}))
-
-// probably easier to just nail this out completely. 
+// Table creation for the search results, this one is for the USER tab. 
 
 const CreateTableFromJSON = function(outputDiv) {
     

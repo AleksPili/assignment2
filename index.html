@@ -106,10 +106,11 @@ Code for dropdown menu for lending tab adapted from - https://www.codebyamir.com
 <!--Third Tab-->
 <div id="Lending" class="tabcontent">
     <h2>Lending</h2>
-    <p>Lending hub for books</p>
-    <select id="lenddropdown" name="lenddrop">
+    <p>Select User ID (get from user tab)</p>
+    <input type="number" id="lenddropdown" style="width: 40px">
     </select>
-    <select id="userlenddropdown" name="userlenddrop">
+    <p>Select book ID (Get from book tab)</p>
+    <input type="number" id="userlenddropdown" style="width: 40px">
     </select>
     <br><br>
     <button type="button" id="lend">Lend for 2 weeks</button>
@@ -117,8 +118,6 @@ Code for dropdown menu for lending tab adapted from - https://www.codebyamir.com
     <p>or</p>
     <input type="number" id="customdays" style="width: 40px"> 
     <button type="button" id="custlend"> days loan</button>
-
-
 </div>
 
 </body>
