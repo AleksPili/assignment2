@@ -43,8 +43,7 @@ const searchButton_2 = document.getElementById("search_books_button");
 
 const searchUsers = function() { 
   let inputName = document.getElementById('searchusers').value; // grabbing the "searchusers" value
-  let url= apiSearchUsers + inputName // constructing the URL
-  let httpReq = new XMLHttpRequest(); // Constructing the request
+  let url= apiSearchUsers + inputName // constructing the URL 
   httpReq.addEventListener("load", processResponse)
   httpReq.open("GET", url)
   httpReq.send();
@@ -54,12 +53,11 @@ const processResponse = function() {
   let response = JSON.parse(this.response); // is this correct? It keeps throwing up errors and since I have no idea what I'm doing....
   CreateTableFromJSON(response); // createList needs to be a new function that fills into your ID'd area "userresulttext"
   response.forEach(function(records) {
-  //return processResponse;
   });
 }
 
 const searchButton_1 = document.getElementById("search_users_button");
-  searchButton_1.addEventListener('click', searchUsers)
+  searchButton_1.addEventListener('click', searchUsers);
 
 
 // add users
@@ -70,7 +68,6 @@ const addUsers = function() {
   let staffOrStudent = document.getElementById("staffcb").value; 
   let url = api + users ;
   let barcode = Math.floor((Math.random() * 1000000) + 1);
-  let httpReq = new XMLHttpRequest();
   httpReq.open("POST", url);
   httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   httpReq.send(JSON.stringify({"name": inputName , "barcode": barcode , "memberType": staffOrStudent}));
@@ -86,11 +83,20 @@ const add_users_button = document.getElementById("add_users_button");
 const delUsers = function() {
   let inputName = document.getElementById("userDelete").value;
   let url = api + users + inputName;
-  httpReq.open("DELETE", url)
-  httpReq.send()
-
+  httpReq.open("DELETE", url);
+  httpReq.send();
 }
+// edit users
 
+const editUsers = function() {
+  let inputName = document.getElementById("userName").value;
+  let inputName2 = document.getElementById("staffcb").value;
+  let inputName3 = document.getElementById("userDelete").value;
+  let url = api + users + inputName3;
+  httpReq.open("PUT", url);
+  httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  httpReq.send(JSON.stringify({"name": inputName , "memberType": inputName2 }));
+}
 
 // Book adding. 
 
@@ -106,19 +112,29 @@ const addBooks = function() {
   httpReq.send(JSON.stringify({"Author": inputName3}))
   httpReq.open("POST", url);
   httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");;
-  httpReq.send(JSON.stringify({"bookTitle": inputName, "bookISBN": inputName2 }))
+  httpReq.send(JSON.stringify({"bookTitle": inputName, "bookISBN": inputName2 }));
 }
 
 const add_books_button = document.getElementById("add_books_button");
-  add_books_button.addEventListener('click', addBooks)
+  add_books_button.addEventListener('click', addBooks);
 
 const delBooks = function() {
   let inputName = document.getElementById("bookDel").value;
   let url = api + books + inputName;
   httpReq.open("DELETE", url)
   httpReq.send()
-  
-  }
+}
+// book editing
+
+const editBooks = function(){
+  let inputName = document.getElementById("booktitle").value;
+  let inputName2 = document.getElementById("ISBN").value;
+  let imputName3 = document.getElementById("bookDel").value;
+  let url = api + books + imputName3
+  httpReq.open("PUT", url);
+  httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");;
+  httpReq.send(JSON.stringify({"bookTitle": inputName, "bookISBN": inputName2 }));
+}
   
 
 // book lending 103 - 164 - Populating the drop downs, 166 lend book function.
@@ -307,3 +323,9 @@ const del_users_button = document.getElementById("del_users_button");
 
 const del_books_button = document.getElementById("del_books_button");
 del_books_button.addEventListener('click', delBooks);
+
+const edit_books = document.getElementById("edit_books_button");
+  edit_books.addEventListener("click", editBooks)
+
+const edit_users = document.getElementById("edit_users_button")
+  edit_users.addEventListener("click", editUsers)
