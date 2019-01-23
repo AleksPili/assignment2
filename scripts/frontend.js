@@ -139,13 +139,14 @@ const editBooks = function(){
 
 // book lending 103 - 164 - Populating the drop downs, 166 lend book function.
 
+
 let dropdown1 = document.getElementById("lenddropdown");
 dropdown1.length = 0;
 
-let defaultOption = document.createElement('option');
-defaultOption.text = "Choose Book";
+let defaultOption1 = document.createElement('option');
+defaultOption1.text = "Choose Book";
 
-dropdown1.add(defaultOption);
+dropdown1.add(defaultOption1);
 dropdown1.selectedIndex = 0;
 
 httpReq.open("GET", lendList, true);
@@ -163,12 +164,11 @@ httpReq.onload = function() {
   }  else {
   }
 }
-
 httpReq.onerror = function() {
-console.error("An error occured with" + lendList)
+console.error("An error occured with" + lendList);
 };
 
-httpReq.send()
+httpReq.send();
 
 let dropdown2 = document.getElementById("userlenddropdown");
 dropdown2.length = 0;
@@ -208,7 +208,6 @@ httpReq.send();
 //  let inputName2 = document.getElementById("userlenddropdown").value
  // let url = api + users + inputName2 + "/" + loans + inputName1
  // httpReq.open("POST", url)
- // httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 //  httpReq.send(JSON.stringify({ , lendDate}))
 
 // probably easier to just nail this out completely. 
