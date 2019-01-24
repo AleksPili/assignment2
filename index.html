@@ -108,16 +108,18 @@ Code for dropdown menu for lending tab adapted from - https://www.codebyamir.com
     <h2>Lending</h2>
     <p>Select User ID (get from user tab)</p>
     <input type="number" id="lenddropdown" style="width: 40px">
-    </select>
     <p>Select book ID (Get from book tab)</p>
     <input type="number" id="userlenddropdown" style="width: 40px">
-    </select>
     <br><br>
     <button type="button" id="lend">Lend for 2 weeks</button>
     <br>
     <p>or</p>
     <input type="number" id="customdays" style="width: 40px"> 
     <button type="button" id="custlend"> days loan</button>
+    <br><br>
+    <button type="button" id="userlendcheck">Check Users loans </button>
+    <button type="button" id="booklendcheck">Check Users loans </button>
+    <div id="booklendresults"></div>
 </div>
 
 </body>

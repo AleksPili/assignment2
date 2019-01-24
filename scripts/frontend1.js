@@ -1,4 +1,4 @@
-// table createTableFromJSON taken from - https://www.encodedna.com/javascript/populate-json-data-to-html-table-using-javascript.htm on the 20/12/18
+// table CREATETABLEFROMJSON taken from - https://www.encodedna.com/javascript/populate-json-data-to-html-table-using-javascript.htm on the 20/12/18
 // Drop menu taken from  - https://www.codebyamir.com/blog/populate-a-select-dropdown-list-with-json
 
 
@@ -23,35 +23,42 @@ const searchBooks = function() {
   let inputName2 = document.getElementById('booksearch').value; // grabbing the "searchusers" value
   let burl= apiSearchBooks + inputName2 // constructing the URL
   let httpReq = new XMLHttpRequest(); // Constructing the request
-  httpReq.addEventListener("load", function() {
-    processResponse(this.response, 'book');
-  })
+  httpReq.addEventListener("load", processResponse2)
   httpReq.open("GET", burl)
   httpReq.send();
 }
 
+const processResponse2 = function() {
+  let response = JSON.parse(this.response); // is this correct? It keeps throwing up errors and since I have no idea what I'm doing....// 
+  createTableFromJSON2(response); // 
+  };
+
+
 const searchButton_2 = document.getElementById("search_books_button");
   searchButton_2.addEventListener('click', searchBooks)
+
+
 
 // JS for search function on Users tab (GET)
 
 const searchUsers = function() { 
   let inputName = document.getElementById('searchusers').value; // grabbing the "searchusers" value
   let url= apiSearchUsers + inputName // constructing the URL 
-  httpReq.addEventListener("load", function () {
-    processResponse(this.response, 'user');
-  });
+  httpReq.addEventListener("load", processResponse)
   httpReq.open("GET", url)
   httpReq.send();
 }
 
-const processResponse = function(response, type) {
-  let jsonResponse = JSON.parse(response); // is this correct? It keeps throwing up errors and since I have no idea what I'm doing....
-  createTableFromJSON(jsonResponse, type); // createList needs to be a new function that fills into your ID'd area "userresulttext"
+const processResponse = function() {
+  let response = JSON.parse(this.response); // is this correct? It keeps throwing up errors and since I have no idea what I'm doing....
+  createTableFromJSON(response); // createList needs to be a new function that fills into your ID'd area "userresulttext"
+  response.forEach(function(records) {
+  });
 }
 
 const searchButton_1 = document.getElementById("search_users_button");
   searchButton_1.addEventListener('click', searchUsers);
+
 
 // add users
 
@@ -59,7 +66,7 @@ const addUsers = function() {
   let inputName = document.getElementById("userName").value;
   let staffOrStudent = document.getElementById("staffcb").value; 
   let url = api + users ;
-  let barcode = Math.floor((Math.random() * 1000000) + 1);
+  let barcode = Math.floor((Math.random() * 1000000) + 1); //generating a random number 
   httpReq.open("POST", url);
   httpReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   httpReq.send(JSON.stringify({"name": inputName , "barcode": barcode , "memberType": staffOrStudent}));
@@ -108,6 +115,8 @@ const addBooks = function() {
 const add_books_button = document.getElementById("add_books_button");
   add_books_button.addEventListener('click', addBooks);
 
+// book deleting
+
 const delBooks = function() {
   let inputName = document.getElementById("bookDel").value;
   let url = api + books + inputName;
@@ -127,7 +136,7 @@ const editBooks = function(){
 }
   
 
-// book lending 140 - 202 - Populating the drop downs, this was originally in place instead of the ID system which is a little user unfriendly
+// book lending 140 - 204 - Populating the drop downs, this was originally in place instead of the ID system which is a little user unfriendly
 // however I couldn't find a way of populated values being used in further GET requests. 
 
 //let dropdown1 = document.getElementById("lenddropdown");
@@ -222,34 +231,30 @@ const lendbooks = document.getElementById("lend");
 const lendbooks2 = document.getElementById("custlend");
  lendbooks2.addEventListener('click', lendBookFunc2)
 
+
+const lendBookUser = function() {
+  let inputName1 = document.getElementById("lenddropdown").value;
+  let url = api + inputName1 + "/" + loans
+  httpReq.addEventListener("load", processResponse)
+  httpReq.open("GET", url)
+  httpReq.send();
+
+}
+
 // Table creation for the search results, this one is for the USER tab. 
 
-const createTableFromJSON = function(response, type) {
-
-let numberOfColumns;
-let outputDivId;
-
-if (type ==='user') {
-  numberOfColumns = 4;
-  outputDivId = "userresulttext";
-} else if (type ==='book') {
-  numberOfColumns = 3;
-  outputDivId = "bookresulttext";
-} else if (type ==='user-loans') {
-  numberOfColumns = 2;
-  outputDivId = "qdqwdjqdiqw";
-}
+const createTableFromJSON = function(outputDiv) {
     
-if (response.length > 0) {
   // EXTRACT VALUE FOR HTML HEADER. 
   // ('Book ID', 'Book Name', 'etc')
   var col = [];
-  debugger;
-  for (var key in response[0]) {
-    if (col.indexOf(key) === -1 && col.length < numberOfColumns) {
-      col.push(key);
+  for (var i = 0; i < 4; i++) {
+      for (var key in outputDiv[i]) {
+          if (col.indexOf(key) === -1) {
+              col.push(key);
+            }
+        }
     }
-  }
 
   // CREATE DYNAMIC TABLE.
   var table = document.createElement("table");
@@ -258,75 +263,71 @@ if (response.length > 0) {
 
   var tr = table.insertRow(-1);                   // TABLE ROW.
 
-  for (var i = 0; i < col.length; i++) {
+  for (var i = 0; i < 4; i++) {
       var th = document.createElement("th");      // TABLE HEADER.
       th.innerHTML = col[i];
       tr.appendChild(th);
   }
 
   // ADD JSON DATA TO THE TABLE AS ROWS.
-  for (var i = 0; i < response.length; i++) {
+  for (var i = 0; i < outputDiv.length; i++) {
 
       tr = table.insertRow(-1);
 
-      for (var j = 0; j < col.length; j++) {
+      for (var j = 0; j < 4; j++) {
           var tabCell = tr.insertCell(-1);
-          tabCell.innerHTML = response[i][col[j]];
+          tabCell.innerHTML = outputDiv[i][col[j]];
       }
   }
 
   // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-  var divContainer = document.getElementById(outputDivId);
+  var divContainer = document.getElementById("userresulttext");
     divContainer.innerHTML = "";
     divContainer.appendChild(table);
-} else {
-  document.getElementById(outputDivId).append("No results found");
-}
 }
 
-// const createTableFromJSON2 = function(outputDiv) {
+const createTableFromJSON2 = function(outputDiv) {
     
-//   // EXTRACT VALUE FOR HTML HEADER. 
-//   // ('Book ID', 'Book Name', 'etc')
-//   var col = [];
-//   debugger;
-//   for (var i = 0; i < 3; i++) {
-//       for (var key in outputDiv[i]) {
-//           if (col.indexOf(key) === -1) {
-//               col.push(key);
-//             }
-//         }
-//     }
+  // EXTRACT VALUE FOR HTML HEADER. 
+  // ('Book ID', 'Book Name', 'etc')
+  var col = [];
+  for (var i = 0; i < 3; i++) {
+      for (var key in outputDiv[i]) {
+          if (col.indexOf(key) === -1) {
+              col.push(key);
+            }
+        }
+    }
 
-//   // CREATE DYNAMIC TABLE.
-//   var table = document.createElement("table");
+  // CREATE DYNAMIC TABLE.
+  var table = document.createElement("table");
 
-//   // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+  // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
 
-//   var tr = table.insertRow(-1);                   // TABLE ROW.
+  var tr = table.insertRow(-1);                   // TABLE ROW.
 
-//   for (var i = 0; i < 3; i++) {
-//       var th = document.createElement("th");      // TABLE HEADER.
-//       th.innerHTML = col[i];
-//       tr.appendChild(th);
-//   }
+  for (var i = 0; i < 3; i++) {
+      var th = document.createElement("th");      // TABLE HEADER.
+      th.innerHTML = col[i];
+      tr.appendChild(th);
+  }
 
-//   // ADD JSON DATA TO THE TABLE AS ROWS.
-//   for (var i = 0; i < outputDiv.length; i++) {
+  // ADD JSON DATA TO THE TABLE AS ROWS.
+  for (var i = 0; i < outputDiv.length; i++) {
 
-//       tr = table.insertRow(-1);
+      tr = table.insertRow(-1);
 
-//       for (var j = 0; j < 3; j++) {
-//           var tabCell = tr.insertCell(-1);
-//           tabCell.innerHTML = outputDiv[i][col[j]];
-//       }
-//   }
+      for (var j = 0; j < 3; j++) {
+          var tabCell = tr.insertCell(-1);
+          tabCell.innerHTML = outputDiv[i][col[j]];
+      }
+  }
 
-//   // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-//   var divContainer = document.getElementById("bookresulttext");
-//     divContainer.innerHTML = "";
-//     divContainer.appendChild(table);
-// }
+  // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+  var divContainer = document.getElementById("bookresulttext");
+    divContainer.innerHTML = "";
+    divContainer.appendChild(table);
+}
 
 
 // Below here is the functionality for the tabs. No Api stuff, Mostly cosmetic. 
